@@ -152,6 +152,64 @@ body {
   font-size: 30px;
   cursor: pointer;
 }
+.bottom-section {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.box {
+  width: 48%;
+  aspect-ratio: 1 / 1;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.box-inner {
+  position: absolute;
+  inset: 8px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: white;
+  background: rgba(0,0,0,0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
 </style>
 </head>
 
@@ -173,7 +231,7 @@ body {
 <div class="bottom-box">
 
   <!-- 🗺 MAPA -->
-  <a class="tile" href="https://maps.google.com/?q=TwojAdres" target="_blank">
+  <a href="https://www.google.com/maps?q=Uraz,dolnośląskie" target="_blank" class="map-box">
     <iframe src="https://maps.google.com/maps?q=TwojAdres&z=15&output=embed"></iframe>
     <span>Zobacz lokalizację</span>
   </a>
@@ -230,6 +288,55 @@ document.getElementById("gallery").addEventListener("touchend", e => {
 });
 </script>
 
+<div class="bottom-section">
+
+  <!-- MAPA -->
+  <a href="https://www.google.com/maps?q=Uraz,dolnośląskie" target="_blank" class="box">
+    <div class="box-inner">
+      <iframe
+        src="https://maps.google.com/maps?q=Uraz,dolnośląskie&z=14&output=embed"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        loading="lazy">
+      </iframe>
+    </div>
+  </a>
+
+  <!-- GALERIA -->
+  <div class="box">
+    <div class="box-inner gallery">
+
+      <img id="gallery-img" src="1.jpg">
+
+      <div class="arrow left" onclick="prev()">‹</div>
+      <div class="arrow right" onclick="next()">›</div>
+
+    </div>
+  </div>
+
+</div>
+<script>
+let current = 1;
+const total = 15;
+
+function showImage() {
+  document.getElementById("gallery-img").src = current + ".jpg";
+}
+
+function next() {
+  current++;
+  if (current > total) current = 1;
+  showImage();
+}
+
+function prev() {
+  current--;
+  if (current < 1) current = total;
+  showImage();
+}
+</script>
 </body>
 
 </html>
+
